@@ -25,7 +25,14 @@
       "dummy"
     ],
     "resources": {
-      "media": []
+      "media": [
+        {
+          "type": "bitmap",
+          "name": "IMAGE_BACKGROUND",
+          "file": "images/zesarux_144.png" 
+        }
+      ]
     }
+
   }
 }
