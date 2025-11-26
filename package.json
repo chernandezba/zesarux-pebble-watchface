@@ -28,13 +28,28 @@
       "media": [
         {
           "type": "bitmap",
-          "name": "IMAGE_BACKGROUND",
-          "file": "images/zesarux_144_desplazado.png"
+          "name": "IMAGE_BACKGROUND0",
+          "file": "images/zesarux_144_desplazado_0.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_BACKGROUND1",
+          "file": "images/zesarux_144_desplazado_1.png"
         },
         {
           "type": "bitmap",
           "name": "IMAGE_BACKGROUND2",
-          "file": "images/zesarux_144.png"
+          "file": "images/zesarux_144_desplazado_2.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_BACKGROUND3",
+          "file": "images/zesarux_144_desplazado_3.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_BACKGROUND4",
+          "file": "images/zesarux_144_desplazado_4.png"
         }
       ]
     }

@@ -6,20 +6,35 @@ static Window *s_main_window;
 static TextLayer *s_time_layer;
 static BitmapLayer *s_background_layer;
 
-static GBitmap *s_background_bitmap;
+static GBitmap *s_background_bitmap0;
+static GBitmap *s_background_bitmap1;
 static GBitmap *s_background_bitmap2;
+static GBitmap *s_background_bitmap3;
+static GBitmap *s_background_bitmap4;
 
 unsigned int id_background=0;
 
 static void set_background() {
 
-  switch(id_background % 2) {
+  switch(id_background % 5) {
 	  case 1:
+		  bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap1);
+	  break;
+
+	  case 2:
 		  bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap2);
 	  break;
 
+	  case 3:
+		  bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap3);
+	  break;
+
+	  case 4:
+		  bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap4);
+	  break;
+
 	  default:
-		  bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
+		  bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap0);
 	   break;
   }
 
@@ -33,8 +48,13 @@ static void update_time() {
 
   // Write the current hours and minutes into a buffer
   static char s_buffer[8];
-  strftime(s_buffer, sizeof(s_buffer), clock_is_24h_style() ?
-                                          "%H:%M" : "%I:%M", tick_time);
+  //strftime(s_buffer, sizeof(s_buffer), clock_is_24h_style() ?
+  //                                        "%H:%M" : "%I:%M", tick_time);
+  strftime(s_buffer, sizeof(s_buffer), "%H:%M", tick_time);
+
+  //TODO: manera cutre de obtener el minuto, lo sacamos del string mostrado
+  //cambiarlo por una función que obtenga el minuto
+  id_background = s_buffer[4]-'0';
 
   // Display this time on the TextLayer
   text_layer_set_text(s_time_layer, s_buffer);
@@ -48,8 +68,11 @@ static void main_window_load(Window *window) {
   GRect bounds = layer_get_bounds(window_layer);
 
   // Create GBitmap
-  s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND);
+  s_background_bitmap0 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND0);
+  s_background_bitmap1 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND1);
   s_background_bitmap2 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND2);
+  s_background_bitmap3 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND3);
+  s_background_bitmap4 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND4);
 
   // Create BitmapLayer to display the GBitmap
   s_background_layer = bitmap_layer_create(bounds);
@@ -84,12 +107,14 @@ static void main_window_unload(Window *window) {
   bitmap_layer_destroy(s_background_layer);
 
   // Destroy GBitmap
-  gbitmap_destroy(s_background_bitmap);
+  gbitmap_destroy(s_background_bitmap0);
+  gbitmap_destroy(s_background_bitmap1);
   gbitmap_destroy(s_background_bitmap2);
+  gbitmap_destroy(s_background_bitmap3);
+  gbitmap_destroy(s_background_bitmap4);
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
-	id_background++;
   update_time();
 }
 
