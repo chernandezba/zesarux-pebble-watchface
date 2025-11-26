@@ -1,4 +1,4 @@
-# zesarux-pebble-watchface
+# zesarux-pebble-watchface version 1.1.0
 
 - Compile:
 
