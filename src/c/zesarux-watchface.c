@@ -7,6 +7,24 @@ static TextLayer *s_time_layer;
 static BitmapLayer *s_background_layer;
 
 static GBitmap *s_background_bitmap;
+static GBitmap *s_background_bitmap2;
+
+unsigned int id_background=0;
+
+static void set_background() {
+
+  switch(id_background % 2) {
+	  case 1:
+		  bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap2);
+	  break;
+
+	  default:
+		  bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
+	   break;
+  }
+
+}
+
 
 static void update_time() {
   // Get a tm structure
@@ -20,6 +38,8 @@ static void update_time() {
 
   // Display this time on the TextLayer
   text_layer_set_text(s_time_layer, s_buffer);
+
+  set_background();
 }
 
 static void main_window_load(Window *window) {
@@ -29,17 +49,20 @@ static void main_window_load(Window *window) {
 
   // Create GBitmap
   s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND);
+  s_background_bitmap2 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND2);
 
   // Create BitmapLayer to display the GBitmap
   s_background_layer = bitmap_layer_create(bounds);
 
   // Set the bitmap onto the layer and add to the window
-  bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
+  //bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
+  set_background();
+
   layer_add_child(window_layer, bitmap_layer_get_layer(s_background_layer));
 
   // Create the TextLayer with specific bounds
   s_time_layer = text_layer_create(
-      GRect(0, PBL_IF_ROUND_ELSE(58, 52), bounds.size.w, 50));
+      GRect(0, 0 /*PBL_IF_ROUND_ELSE(58, 52)*/, bounds.size.w, 50));
 
   // Improve the layout to be more like a watchface
   text_layer_set_background_color(s_time_layer, GColorClear);
@@ -62,9 +85,11 @@ static void main_window_unload(Window *window) {
 
   // Destroy GBitmap
   gbitmap_destroy(s_background_bitmap);
+  gbitmap_destroy(s_background_bitmap2);
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
+	id_background++;
   update_time();
 }
 

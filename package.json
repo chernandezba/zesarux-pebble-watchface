@@ -29,7 +29,12 @@
         {
           "type": "bitmap",
           "name": "IMAGE_BACKGROUND",
-          "file": "images/zesarux_100.png"
+          "file": "images/zesarux_144_desplazado.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_BACKGROUND2",
+          "file": "images/zesarux_144.png"
         }
       ]
     }
