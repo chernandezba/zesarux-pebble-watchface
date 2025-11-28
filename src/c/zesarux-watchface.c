@@ -36,7 +36,7 @@ static void set_background() {
 	  default:
 		  bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap0);
 	   break;
-  }
+  	}
 
 }
 
@@ -68,11 +68,30 @@ static void main_window_load(Window *window) {
   GRect bounds = layer_get_bounds(window_layer);
 
   // Create GBitmap
+    int bw=0;
+
+  switch(watch_info_get_model()) {
+    case WATCH_INFO_MODEL_PEBBLE_ORIGINAL:
+    case WATCH_INFO_MODEL_PEBBLE_STEEL:
+        //144x168 bw
+      bw=1;
+    break;
+  }
+
+  if (bw) {
+  s_background_bitmap0 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BW_BACKGROUND0);
+  s_background_bitmap1 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BW_BACKGROUND1);
+  s_background_bitmap2 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BW_BACKGROUND2);
+  s_background_bitmap3 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BW_BACKGROUND3);
+  s_background_bitmap4 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BW_BACKGROUND4);
+  }
+  else {
   s_background_bitmap0 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND0);
   s_background_bitmap1 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND1);
   s_background_bitmap2 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND2);
   s_background_bitmap3 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND3);
   s_background_bitmap4 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND4);
+  }
 
   // Create BitmapLayer to display the GBitmap
   s_background_layer = bitmap_layer_create(bounds);

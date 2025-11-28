@@ -50,6 +50,31 @@
           "type": "bitmap",
           "name": "IMAGE_BACKGROUND4",
           "file": "images/zesarux_144_desplazado_4.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_BW_BACKGROUND0",
+          "file": "images/zesarux_144_bw_desplazado_0.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_BW_BACKGROUND1",
+          "file": "images/zesarux_144_bw_desplazado_1.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_BW_BACKGROUND2",
+          "file": "images/zesarux_144_bw_desplazado_2.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_BW_BACKGROUND3",
+          "file": "images/zesarux_144_bw_desplazado_3.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_BW_BACKGROUND4",
+          "file": "images/zesarux_144_bw_desplazado_4.png"
         }
       ]
     }
