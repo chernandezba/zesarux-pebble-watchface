@@ -70,13 +70,13 @@ static void main_window_load(Window *window) {
   // Create GBitmap
     int bw=0;
 
-  switch(watch_info_get_model()) {
-    case WATCH_INFO_MODEL_PEBBLE_ORIGINAL:
-    case WATCH_INFO_MODEL_PEBBLE_STEEL:
-        //144x168 bw
-      bw=1;
-    break;
-  }
+  //Como se compila una versión para cada modelo, en la compilación se tienen estos macros
+  //Nota: se probó con watch_info_get_model() pero no parecia funcionar
+  #if defined(PBL_COLOR)
+  bw=0;
+  #else
+  bw=1;
+  #endif
 
   if (bw) {
   s_background_bitmap0 = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BW_BACKGROUND0);
