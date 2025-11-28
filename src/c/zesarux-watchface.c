@@ -52,9 +52,7 @@ static void update_time() {
   //                                        "%H:%M" : "%I:%M", tick_time);
   strftime(s_buffer, sizeof(s_buffer), "%H:%M", tick_time);
 
-  //TODO: manera cutre de obtener el minuto, lo sacamos del string mostrado
-  //cambiarlo por una función que obtenga el minuto
-  id_background = s_buffer[4]-'0';
+  id_background = tick_time->tm_min;
 
   // Display this time on the TextLayer
   text_layer_set_text(s_time_layer, s_buffer);
