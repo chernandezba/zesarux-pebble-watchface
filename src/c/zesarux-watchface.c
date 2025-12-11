@@ -58,7 +58,13 @@ void prv_init(void) {
 
 static void set_background() {
 
-  switch(id_background % 5) {
+
+  int chosen_background = id_background % 5;
+
+  // Set full image always if no animations set
+  if (settings.Animations==0) chosen_background=4;
+
+  switch(chosen_background) {
 	  case 1:
 		  bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap1);
 	  break;

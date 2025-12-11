@@ -1,14 +1,14 @@
 {
   "name": "zesarux-watchface",
   "author": "Cesar Hernandez",
+  "dependencies": {
+    "pebble-clay": "^1.0.4"
+  },
   "version": "1.5.0",
   "keywords": [
     "pebble-app"
   ],
   "private": true,
-  "dependencies": {
-    "pebble-clay": "^1.0.4"
-  },  
   "pebble": {
     "capabilities": [
       "configurable"
@@ -21,9 +21,7 @@
       "aplite",
       "basalt",
       "chalk",
-      "diorite",
-      "emery",
-      "flint"
+      "diorite"
     ],
     "watchapp": {
       "watchface": true
