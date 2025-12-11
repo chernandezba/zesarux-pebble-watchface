@@ -1,10 +1,17 @@
 {
   "name": "zesarux-watchface",
   "author": "Cesar Hernandez",
-  "version": "1.4.0",
-  "keywords": ["pebble-app"],
+  "version": "1.5.0",
+  "keywords": [
+    "pebble-app"
+  ],
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "pebble-clay": "^1.0.4"
+  },
+  "capabilities": [
+    "configurable"
+  ],
   "pebble": {
     "displayName": "zesarux-watchface",
     "uuid": "c55484d7-bad6-4e74-a3ee-6315e00f01e1",
@@ -22,7 +29,7 @@
       "watchface": true
     },
     "messageKeys": [
-      "dummy"
+      "Animations"
     ],
     "resources": {
       "media": [
@@ -78,6 +85,5 @@
         }
       ]
     }
-
   }
 }

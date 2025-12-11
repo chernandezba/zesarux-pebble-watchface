@@ -14,6 +14,47 @@ static GBitmap *s_background_bitmap4;
 
 unsigned int id_background=0;
 
+// Persistent storage key
+#define SETTINGS_KEY 1
+
+// Define our settings struct
+typedef struct ClaySettings {
+  bool Animations;
+} ClaySettings;
+
+// An instance of the struct
+static ClaySettings settings;
+
+// AppMessage receive handler
+static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
+  // Assign the values to our struct
+  Tuple *animations_t = dict_find(iter, MESSAGE_KEY_Animations);
+  if(animations_t) {
+    settings.Animations = animations_t->value->int32 == 1;
+  }
+
+  // ...
+  prv_save_settings();
+}
+
+// Save the settings to persistent storage
+static void prv_save_settings() {
+  persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
+}
+
+
+//Clay - config settings
+void prv_init(void) {
+  // ...
+
+  // Open AppMessage connection
+  app_message_register_inbox_received(prv_inbox_received_handler);
+  app_message_open(128, 128);
+
+  // ...
+}
+
+
 static void set_background() {
 
   switch(id_background % 5) {
@@ -135,6 +176,8 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 }
 
 static void init() {
+  prv_init();
+
   // Create main Window element and assign to pointer
   s_main_window = window_create();
 
@@ -167,3 +210,6 @@ int main(void) {
   app_event_loop();
   deinit();
 }
+
+
+
