@@ -8,11 +8,11 @@
   "private": true,
   "dependencies": {
     "pebble-clay": "^1.0.4"
-  },
-  "capabilities": [
-    "configurable"
-  ],
+  },  
   "pebble": {
+    "capabilities": [
+      "configurable"
+    ],
     "displayName": "zesarux-watchface",
     "uuid": "c55484d7-bad6-4e74-a3ee-6315e00f01e1",
     "sdkVersion": "3",

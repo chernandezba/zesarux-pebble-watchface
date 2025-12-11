@@ -25,6 +25,12 @@ typedef struct ClaySettings {
 // An instance of the struct
 static ClaySettings settings;
 
+// Save the settings to persistent storage
+static void prv_save_settings() {
+  persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
+}
+
+
 // AppMessage receive handler
 static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
   // Assign the values to our struct
@@ -35,11 +41,6 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
 
   // ...
   prv_save_settings();
-}
-
-// Save the settings to persistent storage
-static void prv_save_settings() {
-  persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
 }
 
 
