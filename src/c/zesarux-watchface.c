@@ -30,31 +30,18 @@ static void prv_save_settings() {
   persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
 }
 
-
-// AppMessage receive handler
-static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
-  // Assign the values to our struct
-  Tuple *animations_t = dict_find(iter, MESSAGE_KEY_Animations);
-  if(animations_t) {
-    settings.Animations = animations_t->value->int32 == 1;
-  }
-
-  // ...
-  prv_save_settings();
+// Initialize the default settings
+static void prv_default_settings() {
+  settings.Animations = true;
 }
 
-
-//Clay - config settings
-void prv_init(void) {
-  // ...
-
-  // Open AppMessage connection
-  app_message_register_inbox_received(prv_inbox_received_handler);
-  app_message_open(128, 128);
-
-  // ...
+// Read settings from persistent storage
+static void prv_load_settings() {
+  // Load the default settings
+  prv_default_settings();
+  // Read settings from persistent storage, if they exist
+  persist_read_data(SETTINGS_KEY, &settings, sizeof(settings));
 }
-
 
 static void set_background() {
 
@@ -86,6 +73,32 @@ static void set_background() {
 	   break;
   	}
 
+}
+
+
+// AppMessage receive handler
+static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
+  // Assign the values to our struct
+  Tuple *animations_t = dict_find(iter, MESSAGE_KEY_Animations);
+  if(animations_t) {
+    settings.Animations = animations_t->value->int32 == 1;
+  }
+
+  // ...
+  prv_save_settings();
+  set_background();
+}
+
+
+//Clay - config settings
+void prv_init(void) {
+  prv_load_settings();
+
+  // Open AppMessage connection
+  app_message_register_inbox_received(prv_inbox_received_handler);
+  app_message_open(128, 128);
+
+  // ...
 }
 
 
