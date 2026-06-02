@@ -1,4 +1,3 @@
 -agregar soporte para emery: background mas grande
 -fondo por ejemplo para pantalla 144x168 deberia ser tal cual 144x168 mejor: parece que no le gusta backgrounds tan grandes
--mostrar cantidad usuarios de ZEsarUX del dia anterior
--Clay no soportado para "emery","flint"
+-Clay (gestor de configuración) no soportado para "emery","flint". quiza se puede meter en un bloque de try?
