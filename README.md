@@ -1,6 +1,8 @@
-# zesarux-pebble-watchface version 1.5.0
+# zesarux-pebble-watchface version 1.7.0
 
 https://apps.rebble.io/en_US/application/692644f5703cec0009a280fd
+
+When tapping Pebble, will get the last number of ZEsarUX users (total yesterday users)
 
 - Compile:
 
