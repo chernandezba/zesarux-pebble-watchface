@@ -140,7 +140,7 @@ static void inbox_received_callback(DictionaryIterator *iterator,
 
   snprintf(buffer,
            sizeof(buffer),
-           "u%s",
+           "%s",
            text_tuple->value->cstring);
 
   text_layer_set_text(s_time_layer, buffer);    
@@ -160,7 +160,8 @@ static void request_text_from_server(void) {
   app_message_outbox_send();
 
   //text_layer_set_text(s_text_layer, "Descargando...");
-  text_layer_set_text(s_time_layer, "Fetch");
+  //parece que en esa capa el tipo de letra solo sirve para mostrar numeros, : y poco mas
+  text_layer_set_text(s_time_layer, ":::");
 }
 
 // Se ejecuta al dar un golpe o agitar el reloj
