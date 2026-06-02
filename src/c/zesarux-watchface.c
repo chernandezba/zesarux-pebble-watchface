@@ -2,6 +2,10 @@
 
 #include <pebble.h>
 
+//Usado en la petición del numero de usuarios de ZEsarUX
+#define KEY_TEXT 0
+#define KEY_REQUEST 1
+
 static Window *s_main_window;
 static TextLayer *s_time_layer;
 static BitmapLayer *s_background_layer;
@@ -120,6 +124,51 @@ static void update_time() {
   set_background();
 }
 
+//Recepción del texto de la descarga del numero de usuarios de ZEsarUX
+static void inbox_received_callback(DictionaryIterator *iterator,
+                                    void *context) {
+
+  Tuple *text_tuple = dict_find(iterator, KEY_TEXT);
+
+  if(text_tuple) {
+    //text_layer_set_text(s_text_layer,
+    //                    text_tuple->value->cstring);
+    //text_layer_set_text(s_time_layer,
+    //                    text_tuple->value->cstring);
+
+  static char buffer[128];
+
+  snprintf(buffer,
+           sizeof(buffer),
+           "u%s",
+           text_tuple->value->cstring);
+
+  text_layer_set_text(s_time_layer, buffer);    
+  }
+}
+
+//Solicitar descarga del numero de usuarios de ZEsarUX
+static void request_text_from_server(void) {
+
+  DictionaryIterator *iter;
+
+  if(app_message_outbox_begin(&iter) != APP_MSG_OK) {
+    return;
+  }
+
+  dict_write_uint8(iter, KEY_REQUEST, 1);
+  app_message_outbox_send();
+
+  //text_layer_set_text(s_text_layer, "Descargando...");
+  text_layer_set_text(s_time_layer, "Fetch");
+}
+
+// Se ejecuta al dar un golpe o agitar el reloj
+static void accel_tap_handler(AccelAxisType axis, int32_t direction) {
+
+  request_text_from_server();
+}
+
 static void main_window_load(Window *window) {
   // Get information about the Window
   Layer *window_layer = window_get_root_layer(window);
@@ -213,14 +262,25 @@ static void init() {
   // Show the Window on the watch, with animated=true
   window_stack_push(s_main_window, true);
 
+  // Registrar la recepción del texto de la descarga
+  app_message_register_inbox_received(
+      inbox_received_callback);  
+
   // Register with TickTimerService
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+
+  // Detectar golpes/agitación
+  accel_tap_service_subscribe(
+      accel_tap_handler);  
 
   // Make sure the time is displayed from the start
   update_time();
 }
 
 static void deinit() {
+
+  accel_tap_service_unsubscribe();
+
   // Destroy Window
   window_destroy(s_main_window);
 }

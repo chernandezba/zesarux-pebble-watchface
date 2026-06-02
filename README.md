@@ -19,3 +19,7 @@ pebble install --emulator basalt
 pebble emu-app-config
 
 It will open a browser with the settings
+
+- To simulate a tap on the emulator:
+
+pebble emu-tap
