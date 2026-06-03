@@ -19,8 +19,14 @@ module.exports = [
         "messageKey": "Animations",
         "label": "Animate every minute",
         "defaultValue": true
+      },
+      {
+        "type": "toggle",
+        "messageKey": "ShowUsersOnTap",
+        "label": "Show ZEsarUX yesterday users on tap",
+        "defaultValue": true
       }
-    ]
+     ]
   },
   {
     "type": "submit",

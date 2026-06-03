@@ -28,6 +28,7 @@ unsigned int id_background=0;
 // Define our settings struct
 typedef struct ClaySettings {
   bool Animations;
+  bool ShowUsersOnTap;
 } ClaySettings;
 
 // An instance of the struct
@@ -41,6 +42,7 @@ static void prv_save_settings() {
 // Initialize the default settings
 static void prv_default_settings() {
   settings.Animations = true;
+  settings.ShowUsersOnTap = true;
 }
 
 // Read settings from persistent storage
@@ -90,6 +92,11 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
   Tuple *animations_t = dict_find(iter, MESSAGE_KEY_Animations);
   if(animations_t) {
     settings.Animations = animations_t->value->int32 == 1;
+  }
+
+  Tuple *show_users_t = dict_find(iter, MESSAGE_KEY_ShowUsersOnTap);
+  if(show_users_t) {
+    settings.ShowUsersOnTap = show_users_t->value->int32 == 1;
   }
 
   // ...
@@ -179,6 +186,9 @@ static void inbox_received_callback(DictionaryIterator *iterator,
   if (dict_find(iterator,MESSAGE_KEY_Animations)) {
 	  prv_inbox_received_handler(iterator,context);
   }
+  if (dict_find(iterator,MESSAGE_KEY_ShowUsersOnTap)) {
+	  prv_inbox_received_handler(iterator,context);
+  }
 }
 
 //Solicitar descarga del numero de usuarios de ZEsarUX
@@ -201,7 +211,9 @@ static void request_text_from_server(void) {
 // Se ejecuta al dar un golpe o agitar el reloj
 static void accel_tap_handler(AccelAxisType axis, int32_t direction) {
 
+  if (settings.ShowUsersOnTap) {
   request_text_from_server();
+  }
 }
 
 static void main_window_load(Window *window) {

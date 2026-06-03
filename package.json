@@ -4,7 +4,7 @@
   "dependencies": {
     "pebble-clay": "^1.0.4"
   },
-  "version": "1.7.0",
+  "version": "1.7.1",
   "keywords": [
     "pebble-app"
   ],
@@ -27,7 +27,8 @@
       "watchface": true
     },
     "messageKeys": [
-      "Animations"
+      "Animations",
+      "ShowUsersOnTap"
     ],
     "resources": {
       "media": [
