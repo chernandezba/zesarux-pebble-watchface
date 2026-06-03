@@ -3,8 +3,9 @@
 #include <pebble.h>
 
 //Usado en la petición del numero de usuarios de ZEsarUX
-#define KEY_TEXT 0
-#define KEY_REQUEST 1
+//Numeros random para no entrar en conflicto con Clay
+#define KEY_TEXT 440
+#define KEY_REQUEST 441
 
 static Window *s_main_window;
 static TextLayer *s_time_layer;
@@ -99,7 +100,7 @@ void prv_init(void) {
   prv_load_settings();
 
   // Open AppMessage connection
-  app_message_register_inbox_received(prv_inbox_received_handler);
+  //app_message_register_inbox_received(prv_inbox_received_handler);
   app_message_open(128, 128);
 
   // ...
@@ -125,9 +126,12 @@ static void update_time() {
 }
 
 //Recepción del texto de la descarga del numero de usuarios de ZEsarUX
+//y de settings de clay
 static void inbox_received_callback(DictionaryIterator *iterator,
                                     void *context) {
 
+  //descarga de ZEsarUX users
+  if (dict_find(iterator,KEY_TEXT)) {
   Tuple *text_tuple = dict_find(iterator, KEY_TEXT);
 
   if(text_tuple) {
@@ -144,6 +148,12 @@ static void inbox_received_callback(DictionaryIterator *iterator,
            text_tuple->value->cstring);
 
   text_layer_set_text(s_time_layer, buffer);    
+  }
+  }
+
+  //Setting de Clay
+  if (dict_find(iterator,MESSAGE_KEY_Animations)) {
+	  prv_inbox_received_handler(iterator,context);
   }
 }
 

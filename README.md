@@ -1,4 +1,4 @@
-# zesarux-pebble-watchface version 1.7.0
+# zesarux-pebble-watchface
 
 https://apps.rebble.io/en_US/application/692644f5703cec0009a280fd
 

@@ -14,7 +14,7 @@ Pebble.addEventListener("appmessage", function(e) {
   req.onload = function() {
 
     Pebble.sendAppMessage({
-      0: req.responseText
+      440: req.responseText
     });
 
   };
@@ -22,7 +22,7 @@ Pebble.addEventListener("appmessage", function(e) {
   req.onerror = function() {
 
     Pebble.sendAppMessage({
-      0: "Error"
+      440: "Error"
     });
 
   };
