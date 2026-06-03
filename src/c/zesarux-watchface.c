@@ -17,6 +17,9 @@ static GBitmap *s_background_bitmap2;
 static GBitmap *s_background_bitmap3;
 static GBitmap *s_background_bitmap4;
 
+//Para volver a mostrar la hora despues de la descarga
+static AppTimer *s_text_timer;
+
 unsigned int id_background=0;
 
 // Persistent storage key
@@ -125,6 +128,14 @@ static void update_time() {
   set_background();
 }
 
+//volver a mostrar la hora despues de la descarga
+static void text_timer_callback(void *data) {
+  s_text_timer = NULL;
+
+  // Volver a mostrar la hora
+  update_time();
+}
+
 //Recepción del texto de la descarga del numero de usuarios de ZEsarUX
 //y de settings de clay
 static void inbox_received_callback(DictionaryIterator *iterator,
@@ -148,6 +159,19 @@ static void inbox_received_callback(DictionaryIterator *iterator,
            text_tuple->value->cstring);
 
   text_layer_set_text(s_time_layer, buffer);    
+
+// Cancelar temporizador anterior si existía
+  if(s_text_timer) {
+    app_timer_cancel(s_text_timer);
+  }
+
+  // Volver a la hora dentro de 2 segundos
+  s_text_timer = app_timer_register(
+      2000,
+      text_timer_callback,
+      NULL);
+
+
   }
   }
 
