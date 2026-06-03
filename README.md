@@ -2,6 +2,9 @@
 
 https://apps.rebble.io/en_US/application/692644f5703cec0009a280fd
 
+https://apps.repebble.com/cdfec388a4a74aa89c27e51b
+
+
 When tapping Pebble, will get the last number of ZEsarUX users (total yesterday users)
 
 - Compile:
